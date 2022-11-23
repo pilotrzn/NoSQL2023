@@ -2,7 +2,8 @@
 
 Стенд: Ноутбук с установленной Fedora 36 KDE
 
-Установка MongoDB в docker:
+## Установка MongoDB 
+Установка в docker:
 
 ```code
 $ docker run --name mongodb -d \
@@ -12,18 +13,19 @@ $ docker run --name mongodb -d \
 -e MONGO_INITDB_ROOT_PASSWORD=alexpass \
 mongo
 ```
+
 Чтобы была возможность подключатсья и работать с установленной MongoBD используем 2 решения:
 - MongoBD Compass
 - MongoDB mongosh
 
-для проверки работоспособности выполним подключение к докеру:
+Для проверки работоспособности выполним подключение к докеру:
 
 ```
 $ mongosh --port 27017 -u "root" -p "otus"
 > test
 ```
 
-в результате попадаем в консоль mongodb. В консоли создадим базу learndb и в ней коллекцию sample:
+В результате попадаем в консоль mongodb. В консоли создадим базу learndb и в ней коллекцию sample:
 
 ```code
 test> use learndb
@@ -37,3 +39,6 @@ learndb> db.createCollection('sample')
 ![compass][1]
 
 [1]: ../img/compass.png
+
+
+## Заполнение данными
