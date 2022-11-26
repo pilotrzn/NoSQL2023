@@ -56,7 +56,11 @@ learndb> db.createCollection('sample')
 После подключения к консоли mongo для загрузки данных выполняем команду :
 
 ```bash
-~$ mongoimport --host=127.0.0.1 --authenticationDatabase=admin -d learndb -c tripdata --type csv --file /data/db/importfiles/201912-citibike-tripdata-subset.csv --headerline --username 'alex' --password 'alexpass'
+~$ mongoimport --host=127.0.0.1 \
+ --authenticationDatabase=admin \
+ -d learndb -c tripdata --type csv \
+ --file /data/db/importfiles/201912-citibike-tripdata-subset.csv \
+ --headerline --username 'alex' --password 'alexpass'
 ```
 
 Выгружаю данные в новую коллекцию tripdata базы learndb.
