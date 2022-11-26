@@ -1,8 +1,9 @@
 # Домашнее задание
 
-Стенд: Ноутбук с установленной Fedora 36 KDE
+Стенд: Ноутбук с установленной Fedora 36 KDE.
 
 ## Установка MongoDB 
+
 Установка в docker:
 
 ```code
@@ -14,14 +15,14 @@ $ docker run --name mongodb -d \
 mongo
 ```
 
-Чтобы была возможность подключатсья и работать с установленной MongoBD используем 2 решения:
+Чтобы была возможность подключаться и работать с установленной MongoBD используем 2 решения:
 - MongoBD Compass
 - MongoDB mongosh
 
 Для проверки работоспособности выполним подключение к докеру:
 
 ```
-$ mongosh --port 27017 -u "root" -p "otus"
+$ mongosh --port 27017 -u "alex" -p "alexpass"
 > test
 ```
 
@@ -42,3 +43,23 @@ learndb> db.createCollection('sample')
 
 
 ## Заполнение данными
+
+Перед выполнением процедуры импорта данных я скопировал csv файл в каталог ~/docker/mongodb/importfiles. 
+Его я предварительно создал в консоли mongo, подключившись через команду:
+
+```bash
+~$ docker exec -it mongodb bash
+```
+
+Чтобы скопированный файл csv можно было импортировать, сначала ему меняю владельца на mongodb
+
+После подключения к консоли mongo выполняем команду:
+
+```bash
+~$ mongoimport --host=127.0.0.1 --authenticationDatabase=admin -d citibikes -c tripdata --type csv --file /data/db/importfiles/201912-citibike-tripdata-subset.csv --headerline --username 'alex' --password 'alexpass'
+```
+
+Налиие данных можем проверить в Compass.
+![compass_bikes][2]
+
+[2]: ../img/compass_citibikes.png
