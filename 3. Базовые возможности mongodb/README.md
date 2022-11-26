@@ -44,7 +44,7 @@ learndb> db.createCollection('sample')
 
 ## Заполнение данными
 
-Перед выполнением процедуры импорта данных я скопировал csv файл в каталог ~/docker/mongodb/importfiles. 
+Перед выполнением процедуры импорта данных я скопировал csv файл в каталог ~/docker/mongodb/importfiles.
 Его я предварительно создал в консоли mongo, подключившись через команду:
 
 ```bash
@@ -53,13 +53,14 @@ learndb> db.createCollection('sample')
 
 Чтобы скопированный файл csv можно было импортировать, сначала ему меняю владельца на mongodb
 
-После подключения к консоли mongo выполняем команду:
+После подключения к консоли mongo для загрузки данных выполняем команду :
 
 ```bash
-~$ mongoimport --host=127.0.0.1 --authenticationDatabase=admin -d citibikes -c tripdata --type csv --file /data/db/importfiles/201912-citibike-tripdata-subset.csv --headerline --username 'alex' --password 'alexpass'
+~$ mongoimport --host=127.0.0.1 --authenticationDatabase=admin -d learndb -c tripdata --type csv --file /data/db/importfiles/201912-citibike-tripdata-subset.csv --headerline --username 'alex' --password 'alexpass'
 ```
 
-Налиие данных можем проверить в Compass.
+Выгружаю данные в новую коллекцию tripdata базы learndb.
+Наличие данных можем проверить в Compass.
 ![compass_bikes][2]
 
 [2]: ../img/compass_citibikes.png
