@@ -41,7 +41,6 @@ learndb> db.createCollection('sample')
 
 [1]: ../img/compass.png
 
-
 ## Заполнение данными
 
 Перед выполнением процедуры импорта данных я скопировал csv файл в каталог ~/docker/mongodb/importfiles.
@@ -68,3 +67,5 @@ learndb> db.createCollection('sample')
 ![compass_bikes][2]
 
 [2]: ../img/compass_citibikes.png
+
+## Выборка данных
