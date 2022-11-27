@@ -121,7 +121,7 @@ learndb> db.tripdata.find({}, {"_id":0,"bikeid":1,"start station name":1,"birth 
 learndb> db.tripdata.createIndex({"birth year":1},{"name": "ix_birth_year"})
 ```
 
-для сравнения, до создания индекса были показаны такие результаты:
+Для сравнения, до создания индекса были показаны такие результаты:
 
 ![compass_noindex_1][5]
 
@@ -131,7 +131,7 @@ learndb> db.tripdata.createIndex({"birth year":1},{"name": "ix_birth_year"})
 
 [6]: ../img/compass_noindex_2.png
 
-то есть выполнился обычный collscan всего поля, сортировка выполнилась в памяти.
+То есть выполнился обычный collscan всего поля, обрабатывались все документы в базе, сортировка выполнилась в памяти. Время выполнения - 16мс.
 
 После создания индекса:
 
@@ -145,3 +145,5 @@ learndb> db.tripdata.createIndex({"birth year":1},{"name": "ix_birth_year"})
 ![compass_index_2][8]
 
 [8]: ../img/compass_index_2.png
+
+На примере показателей видно, что примененный индекс увеличивает скорость обработки данных и снижает нагрузку на сервер(не используется память для сортировки).
