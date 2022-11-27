@@ -1,8 +1,8 @@
 # Домашнее задание
 
-Стенд: Ноутбук с установленной Fedora 36 KDE.
+Стенд: ПК с установленной OS Debian 11. Docker.
 
-## Установка MongoDB 
+## Установка MongoDB
 
 Установка в docker:
 
@@ -15,13 +15,14 @@ $ docker run --name mongodb -d \
 mongo
 ```
 
-Чтобы была возможность подключаться и работать с установленной MongoBD используем 2 решения:
-- MongoBD Compass
-- MongoDB mongosh
+Чтобы была возможность подключаться и работать с установленной MongoBD используем 2 решения(установку описывать не буду):
+
+- MongoBD Compass;
+- MongoDB mongosh.
 
 Для проверки работоспособности выполним подключение к докеру:
 
-```
+```bash
 $ mongosh --port 27017 -u "alex" -p "alexpass"
 > test
 ```
@@ -43,14 +44,14 @@ learndb> db.createCollection('sample')
 
 ## Заполнение данными
 
-Перед выполнением процедуры импорта данных я скопировал csv файл в каталог ~/docker/mongodb/importfiles.
+В качестве примера использую образец данных, бд citibike. Перед выполнением процедуры импорта данных я скопировал csv файл в каталог ~/docker/mongodb/importfiles. 
 Его я предварительно создал в консоли mongo, подключившись через команду:
 
 ```bash
 ~$ docker exec -it mongodb bash
 ```
 
-Чтобы скопированный файл csv можно было импортировать, сначала ему меняю владельца на mongodb
+Чтобы скопированный файл csv можно было импортировать, сначала ему меняю владельца на mongodb.
 
 После подключения к консоли mongo для загрузки данных выполняем команду :
 
@@ -68,4 +69,72 @@ learndb> db.createCollection('sample')
 
 [2]: ../img/compass_citibikes.png
 
+Либо выполнив команду в mongosh:
+
+```bash
+learndb> db.tripdata.find()
+```
+
 ## Выборка данных
+
+Для примера сделаем выборку всех участников 1989 г.р., выведем поля bikeid,start station id, birth year, отсортируем по id городов по возрастанию.
+
+![compass_find_1][3]
+
+[3]: ../img/compass_find_1.png
+
+Аналогична команда в mongosh:
+
+```bash
+learndb> db.tripdata.find({"birth year": 1989}, 
+{"_id":0,"bikeid":1,"start station id":1,"birth year": 1, "usertype":1}).sort({"start station id":1})
+```
+
+Другой вариант запроса - найти самого молодого участника, его байк и городс которого стартовал.
+
+```bash
+learndb> db.tripdata.find({}, {"_id":0,"bikeid":1,"start station id":1,"birth year": 1}).sort({"birth year":-1}).limit(1)
+
+[ { 'start station id': 3687, bikeid: 35083, 'birth year': 2003 } ]
+```
+
+То же в Compass:
+
+![compass_find_2][4]
+
+[4]: ../img/compass_find_2.png
+
+## Использование индексов
+
+Явное уменьшение времени обработки запроса на моем количестве данных не будет заметно, поэтому проверку выполним с помощью Explain Plan Compass и посмотрим показатели.
+
+Для начала создадим индекс для поля birth date. В моих запросах к нему происхоит обращение и сортировка.
+
+```bash
+learndb> db.tripdata.createIndex({"birth year":1},{"name": "ix_birth_year"})
+```
+
+для сравнения, до создания индекса были показаны такие результаты:
+
+![compass_noindex_1][5]
+
+[5]: ../img/compass_noindex_1.png
+
+![compass_noindex_2][6]
+
+[6]: ../img/compass_noindex_2.png
+
+то есть выполнился обычный collscan всего поля, сортировка выполнилась в памяти.
+
+После создания индекса:
+
+видим, что время выполнеия = 0, используется индекс, сортировка в памяти не выполняется, количество обработанных документов = 1
+
+![compass_index_1][7]
+
+[7]: ../img/compass_index_1.png
+
+
+![compass_index_2][8]
+
+[8]: ../img/compass_index_2.png
