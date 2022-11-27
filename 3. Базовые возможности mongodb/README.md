@@ -65,6 +65,7 @@ learndb> db.createCollection('sample')
 
 Выгружаю данные в новую коллекцию tripdata базы learndb.
 Наличие данных можем проверить в Compass.
+
 ![compass_bikes][2]
 
 [2]: ../img/compass_citibikes.png
@@ -77,7 +78,7 @@ learndb> db.tripdata.find()
 
 ## Выборка данных
 
-Для примера сделаем выборку всех участников 1989 г.р., выведем поля bikeid,start station id, birth year, отсортируем по id городов по возрастанию.
+Для примера сделаем выборку всех участников 1995 г.р., выведем поля bikeid,start station name, birth year, отсортируем по id городов по возрастанию.
 
 ![compass_find_1][3]
 
@@ -86,16 +87,22 @@ learndb> db.tripdata.find()
 Аналогична команда в mongosh:
 
 ```bash
-learndb> db.tripdata.find({"birth year": 1989}, 
-{"_id":0,"bikeid":1,"start station id":1,"birth year": 1, "usertype":1}).sort({"start station id":1})
+learndb> db.tripdata.find({"birth year": 1995}, 
+{"_id":0,"bikeid":1,"start station name":1,"birth year": 1}).sort({"start station id":1})
 ```
 
-Другой вариант запроса - найти самого молодого участника, его байк и городс которого стартовал.
+Другой вариант запроса - найти самого молодого участника с самым старшим id байка, его байк и город, с которого стартовал. Предполагаем что bikeid - порядковый номер регистрации байка, поэтому последний зарегистрированный.
 
 ```bash
-learndb> db.tripdata.find({}, {"_id":0,"bikeid":1,"start station id":1,"birth year": 1}).sort({"birth year":-1}).limit(1)
+learndb> db.tripdata.find({}, {"_id":0,"bikeid":1,"start station name":1,"birth year": 1}).sort({"birth year":-1,bikeid: -1}).limit(1)
+[
+  {
+    'start station name': 'W 37 St & 5 Ave',
+    bikeid: 41709,
+    'birth year': 2003
+  }
+]
 
-[ { 'start station id': 3687, bikeid: 35083, 'birth year': 2003 } ]
 ```
 
 То же в Compass:
