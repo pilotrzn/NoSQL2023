@@ -15,8 +15,39 @@ mongos> sh.enableSharding("taxi_trip")
 ```
 mongos> use taxi_trip
 mongos> db.taxi.createIndex({ "unique_key" : 1})
+{
+        "raw" : {
+                "shard03/mongo01:27012,mongo02:27012" : {
+                        "createdCollectionAutomatically" : false,
+                        "numIndexesBefore" : 1,
+                        "numIndexesAfter" : 2,
+                        "ok" : 1
+                },
+                "shard02/mongo01:27011,mongo02:27011" : {
+                        "createdCollectionAutomatically" : false,
+                        "numIndexesBefore" : 1,
+                        "numIndexesAfter" : 2,
+                        "ok" : 1
+                },
+                "shard01/mongo01:27010,mongo02:27010" : {
+                        "createdCollectionAutomatically" : false,
+                        "numIndexesBefore" : 1,
+                        "numIndexesAfter" : 2,
+                        "ok" : 1
+                }
+        },
+        "ok" : 1,
+        "operationTime" : Timestamp(1697914492, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1697914492, 1),
+                "signature" : {
+                        "hash" : BinData(0,"0uGOtcs7b4VrcoobNNrnwBvWib8="),
+                        "keyId" : NumberLong("7288421229134872602")
+                }
+        }
+}
 ```
- Необходимо получить ответ о создании индекса.
+ Необходимо получить ответ о создании индекса("ok" : 1)
 
 
 3. Разбиение коллекции

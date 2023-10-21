@@ -6,6 +6,7 @@
 - [Конфигурирование кластера](replicasets.md)
 - [Заливка данных](dataset.md)
 - [Шардирование](sharding.md)
-
+- [Тесты](failover.md)
+- [Backup](backup.md)
 
 [Назад](../README.md)
