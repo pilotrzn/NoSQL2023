@@ -126,3 +126,6 @@ Totals
  Shard shard02 contains 35.68% data, 35.68% docs in cluster, avg obj size on shard : 784B
  Shard shard03 contains 32.87% data, 32.88% docs in cluster, avg obj size on shard : 784B
 ```
+
+
+- [Назад](README.md)
