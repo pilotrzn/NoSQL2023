@@ -14,4 +14,5 @@
 8. [Cassandra: Distributed Key Value, Architecture](Lesson_8/README.md)
 9. [Clickhouse](Lesson_9/README.md)
 10. [Cassandra: System Components](Lesson_10/README.md)
-11. [Cassandra: CQL and Java, Scala API](Lesson_11/README.md)
+11. [Cassandra: CQL and Java, Scala API. Часть 1](Lesson_11/README.md)
+12. [Elasticsearch](Lesson_12/README.md)

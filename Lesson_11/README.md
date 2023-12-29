@@ -1,4 +1,4 @@
-# Cassandra: CQL and Java, Scala API
+# Cassandra: CQL and Java, Scala API.Часть 1 
 
 [Назад](../README.md)
 
